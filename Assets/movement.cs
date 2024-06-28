@@ -8,6 +8,7 @@ public class movement : MonoBehaviour
     public Rigidbody2D rigid;
 
     public float speed = 5;
+    private float basicSpeed;
     public KeyCode UpKey = KeyCode.W;
     public KeyCode DownKey = KeyCode.S;
 
@@ -17,7 +18,20 @@ public class movement : MonoBehaviour
         print("Helloooo");
         sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>(); 
+        ball.BallReset += OnBallReset;
+        basicSpeed= speed;
     }
+
+    private void OnBallReset()
+    {
+        speed = basicSpeed;
+    }
+
+    private void OnDestroy()
+    {
+        ball.BallReset -= OnBallReset;
+    }
+
 
     // Update is called once per frame
     void Update()
